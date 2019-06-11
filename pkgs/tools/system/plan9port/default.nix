@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
       --replace "case Kcmd+'v':" "case 0x16: case Kcmd+'v':"
   '';
 
-  buildInputs = stdenv.lib.optionals (!stdenv.isDarwin) [
+  buildInputs = [
     which perl libX11 fontconfig xorgproto libXt libXext
     freetype # fontsrv wants ft2build.h provides system fonts for acme and sam.
   ];
