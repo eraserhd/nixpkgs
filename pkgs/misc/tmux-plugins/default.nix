@@ -100,6 +100,15 @@ in rec {
     };
   };
 
+  editor-copy-mode = mkDerivation {
+    pluginName = "editor-copy-mode";
+    src = fetchgit {
+      url = "https://github.com/eraserhd/tmux-editor-copy-mode";
+      rev = "60115fe63a1dfaf23a449325fe0da2595b594c49";
+      sha256 = "0v6acja9n0ss1sqlxvfq28m9zkkh0xr5bp3rsjf7pnq4dh8sdihv";
+    };
+  };
+
   fpp = mkDerivation {
     pluginName = "fpp";
     src = fetchgit {
