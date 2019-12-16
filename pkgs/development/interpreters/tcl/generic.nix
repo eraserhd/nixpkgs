@@ -31,10 +31,12 @@ stdenv.mkDerivation {
 
   enableParallelBuilding = true;
 
-  postInstall = ''
+  postInstall = let
+    dllext = if stdenv.isDarwin then "dylib" else "so";
+  in ''
     make install-private-headers
     ln -s $out/bin/tclsh${release} $out/bin/tclsh
-    ln -s $out/lib/libtcl${release}.so $out/lib/libtcl.so
+    ln -s $out/lib/libtcl${release}.${dllext} $out/lib/libtcl.${dllext}
   '';
 
   meta = with stdenv.lib; {
