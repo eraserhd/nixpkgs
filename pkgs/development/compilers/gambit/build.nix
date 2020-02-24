@@ -21,6 +21,14 @@ stdenv.mkDerivation rec {
     "--enable-default-runtime-options=f8,-8,t8" # Default to UTF-8 for source and all I/O
   ];
 
+  postConfigure = ''
+    # OS-specific paths are hardcoded in ./configure
+    substituteInPlace config.status \
+      --replace /usr/local/opt/openssl/lib "${openssl.out}/lib" \
+      --replace /usr/local/opt/openssl@1.1/lib "${openssl.out}/lib"
+    ./config.status
+  '';
+
   buildPhase = ''
     # Make bootstrap compiler, from release bootstrap
     mkdir -p boot &&
