@@ -10,36 +10,16 @@ stdenv.mkDerivation rec {
   # Use makeStaticLibraries to enable creation of statically linked binaries
   buildInputs = [ git autoconf bootstrap openssl (makeStaticLibraries openssl)];
 
-  configurePhase = ''
-    options=(
-      --prefix=$out
-      --enable-single-host
-      --enable-c-opt=-O2
-      --enable-gcc-opts
-      --enable-shared
-      --enable-absolute-shared-libs # Yes, NixOS will want an absolute path, and fix it.
-      --enable-poll
-      --enable-openssl
-      --enable-default-runtime-options="f8,-8,t8" # Default to UTF-8 for source and all I/O
-      #--enable-debug # Nope: enables plenty of good stuff, but also the costly console.log
-
-      #--enable-multiple-versions # Nope, NixOS already does version multiplexing
-      #--enable-guide
-      #--enable-track-scheme
-      #--enable-high-res-timing
-      #--enable-max-processors=4
-      #--enable-multiple-vms
-      #--enable-dynamic-tls
-      #--enable-multiple-vms
-      #--enable-multiple-threaded-vms  ## when SMP branch is merged in
-      #--enable-thread-system=posix    ## default when --enable-multiple-vms is on.
-      #--enable-profile
-      #--enable-coverage
-      #--enable-inline-jumps
-      #--enable-char-size=1" ; default is 4
-    )
-    ./configure ''${options[@]}
-  '';
+  configureFlags = [
+    "--enable-single-host"
+    "--enable-c-opt=-O2"
+    "--enable-gcc-opts"
+    "--enable-shared"
+    "--enable-absolute-shared-libs" # Yes, NixOS will want an absolute path, and fix it.
+    "--enable-poll"
+    "--enable-openssl"
+    "--enable-default-runtime-options=f8,-8,t8" # Default to UTF-8 for source and all I/O
+  ];
 
   buildPhase = ''
     # Make bootstrap compiler, from release bootstrap

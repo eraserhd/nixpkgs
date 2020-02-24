@@ -11,10 +11,6 @@ stdenv.mkDerivation {
 
   buildInputs = [ autoconf ];
 
-  configurePhase = ''
-    ./configure --prefix=$out
-  '';
-
   buildPhase = ''
     # Copy the (configured) sources now, not later, so we don't have to filter out
     # all the intermediate build products.
