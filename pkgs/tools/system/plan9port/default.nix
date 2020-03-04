@@ -16,14 +16,12 @@ stdenv.mkDerivation {
   src =  fetchFromGitHub {
     owner = "9fans";
     repo = "plan9port";
-    rev = "047fd921744f39a82a86d9370e03f7af511e6e84";
-    sha256 = "1lp17948q7vpl8rc2bf5a45bc8jqyj0s3zffmks9r25ai42vgb43";
+    rev = "92aa0e13ad8cec37936998a66eb728bfca88d689";
+    sha256 = "0z7wkpikmi2qv2v2b5f9ishxjdgnkrdnajk1pdyg5d1qf3nkqwi6";
   };
 
   patches = [
-    ./tmpdir.patch
     ./darwin-sw_vers.patch
-    ./darwin-cfframework.patch
   ];
 
   postPatch = ''
